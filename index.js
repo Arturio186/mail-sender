@@ -68,7 +68,7 @@ app.post('/sendEmail', async (req, res) => {
     <p><strong>Калькулятор:</strong> ${mode}</p>
     <h3>Данные из формы:</h3>
     <ul>
-      ${Object.entries(another).map(([key, value]) => `<li><strong>${translateMap[key]}:</strong> ${value}</li>`).join('')}
+      ${Object.entries(another).map(([key, value]) => `<li><strong>${translateMap[key] ?? key}:</strong> ${value}</li>`).join('')}
     </ul>
   `;
 
