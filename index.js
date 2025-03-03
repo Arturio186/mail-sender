@@ -26,8 +26,17 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+const translateMap = {
+  'material_type': 'Тип ткани',
+  'clothes_type': 'Тип одежды',
+  'structure': 'Состав',
+  'totalYuan': 'Общая стоимость партии в юанях',
+  'volume': 'Объем',
+  'weight': 'Вес'
+}
+
 app.post('/sendEmail', async (req, res) => {
-  const formData = req.body;
+  const {mode, ...another} = req.body;
   const userIP = req.ip;
   const userAgent = req.useragent.source;
 
@@ -56,9 +65,10 @@ app.post('/sendEmail', async (req, res) => {
     <p><strong>IP:</strong> ${userIP}</p>
     <p><strong>Location:</strong> ${location}</p>
     <p><strong>User Agent:</strong> ${userAgent}</p>
+    <p><strong>Калькулятор:</strong> ${mode}</p>
     <h3>Данные из формы:</h3>
     <ul>
-      ${Object.entries(formData).map(([key, value]) => `<li><strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> ${value}</li>`).join('')}
+      ${Object.entries(another).map(([key, value]) => `<li><strong>${translateMap[key]}:</strong> ${value}</li>`).join('')}
     </ul>
   `;
 
