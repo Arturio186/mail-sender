@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const https = require("https");
+const fs = require("fs");
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const useragent = require('express-useragent');
