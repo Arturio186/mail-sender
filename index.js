@@ -6,7 +6,6 @@ const fs = require("fs");
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const useragent = require('express-useragent');
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const knexConfig = require('./knexfile');
 
 const app = express();
@@ -51,20 +50,10 @@ app.post('/sendEmail', async (req, res) => {
   const userIP = req.ip;
   const userAgent = req.useragent.source;
 
-  let location = 'Unknown';
-  try {
-    const response = await fetch(`https://ipapi.co/${userIP}/json/`);
-    const data = await response.json();
-    location = `${data.city}, ${data.region}, ${data.country_name}`;
-  } catch (err) {
-    console.error('Error fetching location:', err);
-  }
-
   try {
     await db('formData').insert({
-      form_data: JSON.stringify(formData),
+      form_data: JSON.stringify(req.body),
       ip: userIP,
-      location,
       user_agent: userAgent,
     });
   } catch (err) {
