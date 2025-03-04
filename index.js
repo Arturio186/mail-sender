@@ -63,7 +63,6 @@ app.post('/sendEmail', async (req, res) => {
   const emailContent = `
     <h2>Новый расчет в форме</h2>
     <p><strong>IP:</strong> ${userIP}</p>
-    <p><strong>Location:</strong> ${location}</p>
     <p><strong>User Agent:</strong> ${userAgent}</p>
     <p><strong>Калькулятор:</strong> ${mode}</p>
     <h3>Данные из формы:</h3>
