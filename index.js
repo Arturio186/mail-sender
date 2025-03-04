@@ -35,6 +35,15 @@ const translateMap = {
   'weight': 'Вес'
 }
 
+const options = {
+  key: fs.readFileSync("key.pem"),
+  cert: fs.readFileSync("cert.pem")
+};
+
+https.createServer(options, app).listen(PORT, () => {
+  console.log(`Server running on https://45.153.188.196:${PORT}`);
+});
+
 app.post('/sendEmail', async (req, res) => {
   const {mode, ...another} = req.body;
   const userIP = req.ip;
@@ -87,8 +96,3 @@ app.post('/sendEmail', async (req, res) => {
     res.status(500).send('Email error');
   }
 });
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
